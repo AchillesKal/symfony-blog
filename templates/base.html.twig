@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/app.tailwind.css') }}">
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body class="bg-gray-100 text-gray-800">
+        <header class="bg-white shadow">
+            <nav class="container mx-auto px-6 py-3">
+                <div class="flex justify-between items-center">
+                    <a href="{{ path('app_blog_post_index') }}" class="text-xl font-bold text-gray-800">Symfony Blog</a>
+                    <div class="flex space-x-4">
+                        <a href="{{ path('app_blog_post_index') }}" class="text-gray-800 hover:text-gray-600">Home</a>
+                        <a href="{{ path('app_about') }}" class="text-gray-800 hover:text-gray-600">About</a>
+                        {% if app.user %}
+                            <a href="{{ path('app_logout') }}">Logout</a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}" class="text-gray-800 hover:text-gray-600">Login</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container mx-auto px-6 py-8">
+            {% block body %}{% endblock %}
+        </main>
+        <footer class="bg-white shadow mt-8">
+            <div class="container mx-auto px-6 py-4">
+                <p class="text-gray-700 text-center">Simple Blog © 2024. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
+</html>
+
+
+

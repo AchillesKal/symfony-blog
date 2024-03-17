@@ -1,0 +1,110 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}BlogPost index{% endblock %}
+
+{% block body %}
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <section class="actions flex flex-row-reverse mb-2">
+            <a href="{{ path('app_blog_post_new') }}" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out">Create new</a>
+        </section>
+    {% endif %}
+
+    {% set isFirstItem = true %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+        {% for blog_post in pager %}
+            {% if isFirstItem %}
+                <article class="md:col-span-2 relative overflow-hidden rounded-3xl z-40 h-[35rem] md:h-[50vh]">
+                    {% set isFirstItem = false %}
+                    {% if blog_post.banner %}
+                        <div class="absolute inset-0">
+                            <img src="{{ asset(uploaded_asset(blog_post.banner)) }}" alt="{{ blog_post.title }}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 w-full h-full overflow-hidden bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        </div>
+                    {% endif %}
+
+                    <div class="relative px-6 py-10 h-full flex flex-col align-items-end justify-end items-baseline">
+                        <a href="{{ path('app_blog_post_show', {'slug': blog_post.slug}) }}" class="text-white">
+                            <h2 class="text-6xl font-bold mb-8">{{ blog_post.title }}</h2>
+                        </a>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a href="{{ path('app_blog_post_edit', {'id': blog_post.id}) }}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                Edit
+                            </a>
+                        {% endif %}
+                        <p class="text-xl max-w-4xl leading-relaxed text-white">
+                            {{ blog_post.content|slice(0, 300) ~ '...' }}
+                        </p>
+                    </div>
+                </article>
+            {% else %}
+                <article class="bg-white px-6 py-10 rounded-3xl">
+                    <div class="flex justify-between gap-4">
+                        <a href="{{ path('app_blog_post_show', {'slug': blog_post.slug}) }}">
+                            <h2 class="text-4xl font-bold mb-8">{{ blog_post.title }}</h2>
+                        </a>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a href="{{ path('app_blog_post_edit', {'id': blog_post.id}) }}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                Edit
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    {% if blog_post.banner %}
+                        <div class="mb-6">
+                            <!-- Keep original aspect ratio but ensure it's responsive -->
+                            <img src="{{ asset(uploaded_asset(blog_post.banner)) }}" alt="{{ blog_post.title }}" class="w-full object-cover rounded">
+                        </div>
+                    {% endif %}
+
+                    <p>
+                        {{ blog_post.content|length > 300 ? blog_post.content|slice(0, 300) ~ '...' : blog_post.content }}
+                    </p>
+                </article>
+            {% endif %}
+        {% else %}
+            <div class="md:col-span-2">
+                <div>No Articles found 😞</div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <nav aria-label="Pagination" class="flex items-center justify-center space-x-2 my-4">
+        {% if pager.hasPreviousPage %}
+            <a href="{{ path('app_blog_post_index', {'page': 1}) }}" class="px-3 py-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100">First</a>
+            <a href="{{ path('app_blog_post_index', {'page': pager.previousPage}) }}" class="px-3 py-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100">Previous</a>
+        {% endif %}
+
+        {% set current = pager.currentPage %}
+        {% set left = current - 2 %}
+        {% set right = current + 2 %}
+        {% set last = pager.nbPages %}
+
+        {% if left < 1 %}
+            {% set right = right + (1 - left) %}
+            {% set left = 1 %}
+        {% endif %}
+        {% if right > last %}
+            {% set left = left - (right - last) %}
+            {% set right = last %}
+        {% endif %}
+        {% if left < 1 %}
+            {% set left = 1 %}
+        {% endif %}
+
+        {% if pager.hasNextPage or pager.hasPreviousPage %}
+            {% for i in range(left, right) %}
+                <a href="{{ path('app_blog_post_index', {'page': i}) }}" class="px-3 py-2 text-sm font-medium {{ i == current ? 'bg-blue-500 text-white' : 'text-gray-700 bg-white' }} rounded-md border border-gray-300 hover:bg-gray-100">{{ i }}</a>
+            {% endfor %}
+        {% endif %}
+
+
+        {% if pager.hasNextPage %}
+            <a href="{{ path('app_blog_post_index', {'page': pager.nextPage}) }}" class="px-3 py-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100">Next</a>
+            <a href="{{ path('app_blog_post_index', {'page': last}) }}" class="px-3 py-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100">Last</a>
+        {% endif %}
+
+    </nav>
+{% endblock %}
