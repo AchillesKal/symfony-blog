@@ -41,6 +41,7 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/$, roles: PUBLIC_ACCESS }
         - { path: ^/login$, roles: PUBLIC_ACCESS }
+        - { path: ^/about$, roles: PUBLIC_ACCESS }
         - { path: ^/blog/[^/]+/?$, roles: PUBLIC_ACCESS, methods: GET }
         - { path: ^/tag/?$, roles: PUBLIC_ACCESS, methods: GET}
         - { path: ^/tag/[^/]+/?$, roles: PUBLIC_ACCESS, methods: GET}
