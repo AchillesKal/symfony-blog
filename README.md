@@ -51,4 +51,7 @@ Symfony Docker is available under the MIT License.
 Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
 
 ## Use tailwindcss
-./bin/tailwindcss -i assets/styles/app.css -o assets/styles/app.tailwind.css -w
+To install the assets
+```
+php bin/console tailwind:build
+```

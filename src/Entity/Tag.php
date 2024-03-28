@@ -21,7 +21,7 @@ class Tag
     #[ORM\Column(length: 255)]
     private string $title;
 
-    #[ORM\ManyToMany(targetEntity: BlogPost::class, inversedBy: 'tags')]
+    #[ORM\ManyToMany(targetEntity: BlogPost::class, mappedBy: 'tags')]
     private Collection $blogPosts;
 
 

@@ -25,8 +25,7 @@ class TagController extends AbstractController
     #[Route('/new', name: 'app_tag_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $tag = new Tag();
-        $form = $this->createForm(TagType::class, $tag);
+        $form = $this->createForm(TagType::class, $tag = new Tag());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

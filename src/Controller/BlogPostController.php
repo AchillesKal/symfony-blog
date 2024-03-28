@@ -28,11 +28,8 @@ class BlogPostController extends AbstractController
         $pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(
             $adapter,
             $request->query->get('page', 1),
-            9
+            11
         );
-
-        $bannerDirectory = $this->getParameter('banner_directory');
-
 
         return $this->render('blog_post/index.html.twig', [
             'pager' => $pagerfanta,
@@ -43,12 +40,9 @@ class BlogPostController extends AbstractController
     public function new(
         Request $request,
         EntityManagerInterface $entityManager,
-        SluggerInterface $slugger,
         UploaderHelper $uploaderHelper,
     ): Response {
-        $blogPost = new BlogPost();
-
-        $form = $this->createForm(BlogPostType::class, $blogPost);
+        $form = $this->createForm(BlogPostType::class, $blogPost = new BlogPost());
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($bannerFile = $form->get('banner')->getData()) {
@@ -96,6 +90,7 @@ class BlogPostController extends AbstractController
 
                 $blogPost->setBanner($uploaderHelper->uploadFile($bannerFile, $this->getParameter('banner_directory')));
             }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_blog_post_index', [], Response::HTTP_SEE_OTHER);
