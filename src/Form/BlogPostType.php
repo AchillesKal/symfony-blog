@@ -44,6 +44,7 @@ class BlogPostType extends AbstractType
                 'class' => Tag::class,
                 'choice_label' => 'title',
                 'multiple' => true,
+                'autocomplete' => true,
                 'required' => false,
             ])
         ;
