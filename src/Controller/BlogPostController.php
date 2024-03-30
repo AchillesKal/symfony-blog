@@ -93,7 +93,7 @@ class BlogPostController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_blog_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_blog_post_show', ['slug' => $blogPost->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('blog_post/edit.html.twig', [
