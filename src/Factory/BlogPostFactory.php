@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\BlogPost;
 use App\Repository\BlogPostRepository;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -46,9 +47,17 @@ final class BlogPostFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $imagePath = __DIR__ . '/../../tests/Assets/test.webp';
+        $filename = uniqid('test') . '.webp';
+        $temporaryImagePath =  __DIR__  . '/../../public/uploads/banners/' . $filename;
+
+        // Copy the dummy image to a temporary file to simulate an upload
+        copy($imagePath, $temporaryImagePath);
+        $file = new UploadedFile($temporaryImagePath, $filename);
         return [
-            'title' => self::faker()->words(5, true),
-            'content' => self::faker()->paragraphs(5, true)
+            'title' => ucfirst(self::faker()->words(5, true)),
+            'content' => self::faker()->paragraphs(10, true),
+            'banner' => $file->getFilename(),
         ];
     }
 
