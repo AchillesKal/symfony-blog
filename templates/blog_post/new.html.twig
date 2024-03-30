@@ -3,17 +3,8 @@
 {% block title %}New BlogPost{% endblock %}
 
 {% block body %}
-    <section class="actions flex flex-row-reverse mb-2">
-        <a href="{{ path('app_blog_post_index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-            Go Back
-        </a>
-    </section>
-
-    <h1>Create new BlogPost</h1>
-
-    {{ include('blog_post/_form.html.twig') }}
-
+    <div class="prose mx-auto max-w-screen-lg w-full pt-12">
+        <h1>Create new article</h1>
+        {{ include('blog_post/_form.html.twig') }}
+    </div>
 {% endblock %}

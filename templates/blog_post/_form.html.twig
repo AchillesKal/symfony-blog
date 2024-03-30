@@ -2,7 +2,7 @@
     {{ form_start(form) }}
     <div>
         <label for="blog_post_title" class="text-sm font-medium">Title</label>
-        {{ form_widget(form.title, {'attr': {'class': 'shadow-inner w-full bg-gray-100 border hover:border-gray-900 transition-all text-gray-900 mt-2 p-4 rounded-xl focus:outline-none focus:shadow-outline'}}) }}
+        {{ form_widget(form.title, {'attr': {'class': 'shadow-inner w-full bg-gray-100 border hover:border-gray-900 transition-all text-gray-900 mt-2 p-4 rounded-xl focus:outline-none focus:shadow-outline', 'placeholder': 'Add title'}}) }}
     </div>
 
     <div>
@@ -23,7 +23,7 @@
 
     <div>
         <label for="blog_post_content" class="text-sm font-medium">Content</label>
-        {{ form_widget(form.content, {'attr': {'class': 'shadow-inner w-full bg-gray-100 hover:border-gray-900 transition-all border text-gray-900 mt-2 p-4 rounded-xl focus:outline-none focus:shadow-outline', 'rows': '20'}}) }}
+        {{ form_widget(form.content, {'attr': {'class': 'shadow-inner w-full bg-gray-100 hover:border-gray-900 transition-all border text-gray-900 mt-2 p-4 rounded-xl focus:outline-none focus:shadow-outline', 'rows': '20', 'placeholder': 'Add content'}}) }}
     </div>
 
     <button type="submit" class="px-12 py-3 bg-black hover:bg-black/90 rounded-xl text-white flex place-items-center justify-center">
