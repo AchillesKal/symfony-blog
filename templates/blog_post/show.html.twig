@@ -3,49 +3,30 @@
 {% block title %}BlogPost{% endblock %}
 
 {% block body %}
-    <section class="actions flex flex-row-reverse mb-2">
-        <a href="{{ path('app_blog_post_index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded inline-flex items-center ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-            back to list
-        </a>
+    <article class="prose prose-h1:text-balance pt-12 mx-auto max-w-screen-lg w-full prose-p:text-black prose-p:text-lg prose-p:font-light">
+        <div class="flex flex-row justify-between items-baseline gap-44">
+            <h1>{{ blog_post.title }}</h1>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="mb-6 flex flex-row gap-2">
+                    <a href="{{ path('app_blog_post_edit', {'id': blog_post.id}) }}" class="bg-gray-200 shadow hover:bg-gray-300 text-gray-900 font-bold py-2 px-4 rounded-xl inline-flex items-center no-underline">
+                        Edit
+                    </a>
+                    {{ include('blog_post/_delete_form.html.twig') }}
+                </div>
+            {% endif %}
+        </div>
+        <small>Published at: {{ blog_post.publishedAt ? blog_post.publishedAt|date('D d M Y H:i') : '' }}</small>
+        <small>Updated at: {{ blog_post.updatedAt ? blog_post.updatedAt|date('D d M Y · H:i') : '' }}</small>
 
-        <a href="{{ path('app_blog_post_edit', {'id': blog_post.id}) }}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-            Edit
-        </a>
-    </section>
-
-    <h1>BlogPost</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ blog_post.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ blog_post.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ blog_post.content }}</td>
-            </tr>
-            <tr>
-                <th>PublishedAt</th>
-                <td>{{ blog_post.publishedAt ? blog_post.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ blog_post.createdAt ? blog_post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ blog_post.updatedAt ? blog_post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    {{ include('blog_post/_delete_form.html.twig') }}
+        {% if blog_post.banner %}
+            <img src="{{ asset(uploaded_asset(blog_post.banner)) }}" alt="{{ blog_post.title }}" class="h-full w-full object-cover">
+        {% else %}
+            <div class="min-h-full h-72 flex justify-center items-center bg-gray-200 rounded-3xl fill-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" height="54" viewBox="0 -960 960 960" width="54">
+                    <path d="M480-290.769q62.692 0 105.962-43.269 43.269-43.27 43.269-105.962t-43.269-105.962Q542.692-589.231 480-589.231t-105.962 43.269Q330.769-502.692 330.769-440t43.269 105.962q43.27 43.269 105.962 43.269Zm0-40q-46.615 0-77.923-31.308T370.769-440q0-46.615 31.308-77.923T480-549.231q46.615 0 77.923 31.308T589.231-440q0 46.615-31.308 77.923T480-330.769ZM184.615-160Q157-160 138.5-178.5 120-197 120-224.615v-430.77Q120-683 138.5-701.5 157-720 184.615-720h118.308l54.615-59.385q8.693-9.692 21.116-15.154Q391.077-800 405-800h150q13.923 0 26.346 5.461 12.423 5.462 21.116 15.154L657.077-720h118.308Q803-720 821.5-701.5 840-683 840-655.385v430.77Q840-197 821.5-178.5 803-160 775.385-160h-590.77Zm0-40h590.77q10.769 0 17.692-6.923T800-224.615v-430.77q0-10.769-6.923-17.692T775.385-680H639.538l-73.769-80H394.231l-73.769 80H184.615q-10.769 0-17.692 6.923T160-655.385v430.77q0 10.769 6.923 17.692T184.615-200ZM480-440Z"/>
+                </svg>
+            </div>
+        {% endif %}
+        <p>{{ blog_post.content }}</p>
+    </article>
 {% endblock %}

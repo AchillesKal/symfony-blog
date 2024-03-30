@@ -13,7 +13,7 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body class="bg-gray-100 text-gray-800">
+    <body>
         <header class="bg-white border-black border-b-2">
             <nav class="max-w-screen-xl mx-auto px-8">
                 <div class="flex justify-between items-center h-14">
@@ -52,8 +52,8 @@
             {% block body %}{% endblock %}
         </main>
 
-        <footer class="bg-white shadow mt-8">
-            <div class="container mx-auto px-6 py-4">
+        <footer class="py-6 mt-12">
+            <div class="max-w-screen-xl mx-auto px-8 text-center">
                 <span class="text-gray-800 text-center">&copy; {{ 'now'|date('Y') }} Blog • All rights reserved</span>
             </div>
         </footer>
