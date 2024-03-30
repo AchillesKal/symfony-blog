@@ -7,12 +7,9 @@
         <div class="flex flex-row justify-between items-baseline gap-44">
             <h1>{{ blog_post.title }}</h1>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <div class="mb-6 flex flex-row gap-2">
-                    <a href="{{ path('app_blog_post_edit', {'id': blog_post.id}) }}" class="bg-gray-200 shadow hover:bg-gray-300 text-gray-900 font-bold py-2 px-4 rounded-xl inline-flex items-center no-underline">
-                        Edit
-                    </a>
-                    {{ include('blog_post/_delete_form.html.twig') }}
-                </div>
+                <a href="{{ path('app_blog_post_edit', {'id': blog_post.id}) }}" class="bg-gray-200 shadow hover:bg-gray-300 text-gray-900 font-bold py-2 px-4 rounded-xl inline-flex items-center no-underline">
+                    Edit
+                </a>
             {% endif %}
         </div>
         <small>Published at: {{ blog_post.publishedAt ? blog_post.publishedAt|date('D d M Y H:i') : '' }}</small>
