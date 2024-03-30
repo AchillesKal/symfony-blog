@@ -1,35 +1,33 @@
 <form method="POST" class="space-y-4" enctype="multipart/form-data">
     {{ form_start(form) }}
     <div>
-        <label for="blog_post_title" class="block text-sm font-medium text-gray-700">Title</label>
-        {{ form_widget(form.title, {'attr': {'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2'}}) }}
+        <label for="blog_post_title" class="text-sm font-medium">Title</label>
+        {{ form_widget(form.title, {'attr': {'class': 'shadow-inner w-full bg-gray-100 border hover:border-gray-900 transition-all text-gray-900 mt-2 p-4 rounded-xl focus:outline-none focus:shadow-outline'}}) }}
+    </div>
+
+    <div>
+        <label for="blog_post_tags" class="text-sm font-medium">Tags</label>
+        {{ form_widget(form.tags, {'attr': {'class': 'shadow-inner w-full bg-gray-100 hover:border-gray-900 transition-all border text-gray-900 mt-2 p-4 rounded-xl focus:outline-none focus:shadow-outline', 'multiple': 'multiple'}}) }}
     </div>
 
     {% if blog_post.banner %}
-        <div>
-            <img src="{{ asset(uploaded_asset(blog_post.banner)) }}" alt="{{ blog_post.title }}" class="w-full h-64 object-cover rounded">
-            Delete banner: {{ form_widget(form.delete_banner) }}
+        <div class="flex flex-col">
+            <img src="{{ asset(uploaded_asset(blog_post.banner)) }}" alt="{{ blog_post.title }}" class="w-full h-full object-cover">
+            <span>Delete image: {{ form_widget(form.delete_banner) }}</span>
         </div>
     {% endif %}
-
 
     <div>
         {{ form_widget(form.banner) }}
     </div>
 
     <div>
-        <label for="blog_post_content" class="block text-sm font-medium text-gray-700">Content</label>
-        {{ form_widget(form.content, {'attr': {'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2'}}) }}
+        <label for="blog_post_content" class="text-sm font-medium">Content</label>
+        {{ form_widget(form.content, {'attr': {'class': 'shadow-inner w-full bg-gray-100 hover:border-gray-900 transition-all border text-gray-900 mt-2 p-4 rounded-xl focus:outline-none focus:shadow-outline', 'rows': '20'}}) }}
     </div>
 
-    <div>
-        <label for="blog_post_tags" class="block text-sm font-medium text-gray-700">Tags</label>
-        {{ form_widget(form.tags, {'attr': {'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2', 'multiple': 'multiple'}}) }}
-    </div>
-
-    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        Submit
+    <button type="submit" class="px-12 py-3 bg-black hover:bg-black/90 rounded-xl text-white flex place-items-center justify-center">
+        Save
     </button>
-
     {{ form_end(form) }}
 </form>
