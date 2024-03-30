@@ -3,16 +3,18 @@
 {% block title %}BlogPost{% endblock %}
 
 {% block body %}
-    <article class="prose pt-12 mx-auto max-w-screen-lg prose-p:text-black prose-p:text-lg prose-p:font-light">
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <div class="mb-6 flex flex-row gap-2">
-                <a href="{{ path('app_blog_post_edit', {'id': blog_post.id}) }}" class="bg-gray-200 shadow hover:bg-gray-300 text-gray-900 font-bold py-2 px-4 rounded-xl inline-flex items-center no-underline">
-                    Edit
-                </a>
-                {{ include('blog_post/_delete_form.html.twig') }}
-            </div>
-        {% endif %}
-        <h1>{{ blog_post.title }}</h1>
+    <article class="prose prose-h1:text-balance pt-12 mx-auto max-w-screen-lg w-full prose-p:text-black prose-p:text-lg prose-p:font-light">
+        <div class="flex flex-row justify-between items-baseline gap-44">
+            <h1>{{ blog_post.title }}</h1>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="mb-6 flex flex-row gap-2">
+                    <a href="{{ path('app_blog_post_edit', {'id': blog_post.id}) }}" class="bg-gray-200 shadow hover:bg-gray-300 text-gray-900 font-bold py-2 px-4 rounded-xl inline-flex items-center no-underline">
+                        Edit
+                    </a>
+                    {{ include('blog_post/_delete_form.html.twig') }}
+                </div>
+            {% endif %}
+        </div>
         <small>Published at: {{ blog_post.publishedAt ? blog_post.publishedAt|date('D d M Y H:i') : '' }}</small>
         <small>Updated at: {{ blog_post.updatedAt ? blog_post.updatedAt|date('D d M Y · H:i') : '' }}</small>
 
