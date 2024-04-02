@@ -8,3 +8,5 @@ services:
       APP_SECRET: ${APP_SECRET}
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
       MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
+    env_file:
+      - .env.local
