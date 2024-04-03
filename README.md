@@ -55,3 +55,8 @@ To install the assets
 ```
 php bin/console tailwind:build
 ```
+
+To compile the assets
+```
+php bin/console asset-map:compile
+```

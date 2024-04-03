@@ -35,6 +35,17 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 
 	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
+
+	php bin/console tailwind:build
+
+	# create public uploads/banners directory
+	mkdir -p public/uploads/banners
+
+    # check if APP_ENV is set to "prod"
+    if [ "$APP_ENV" = 'prod' ]; then
+    	php bin/console asset-map:compile
+    	php bin/console d:f:l --no-interaction
+    fi
 fi
 
 exec docker-php-entrypoint "$@"
