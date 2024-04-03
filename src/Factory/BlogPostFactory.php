@@ -47,7 +47,7 @@ final class BlogPostFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
-        $imagePath = __DIR__ . '/../../tests/Assets/test.webp';
+        $imagePath = __DIR__ . '/../../assets/images/test.webp';
         $filename = uniqid('test') . '.webp';
         $temporaryImagePath =  __DIR__  . '/../../public/uploads/banners/' . $filename;
 
