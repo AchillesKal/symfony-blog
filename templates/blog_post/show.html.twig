@@ -18,6 +18,6 @@
         {% if blog_post.banner %}
             <img src="{{ asset(uploaded_asset(blog_post.banner)) }}" alt="{{ blog_post.title }}" class="h-full w-full object-cover">
         {% endif %}
-        <p>{{ blog_post.content }}</p>
+        <p>{{ blog_post.content|purify }}</p>
     </article>
 {% endblock %}

@@ -4,7 +4,6 @@
 
 {% block body %}
     <section class="prose mx-auto max-w-screen-lg w-full pt-12">
-
         <div class="flex flex-row justify-between items-baseline gap-44">
             <h1>Edit {{ blog_post.title }}</h1>
             {{ include('blog_post/_delete_form.html.twig') }}
@@ -12,4 +11,21 @@
 
         {{ include('blog_post/_form.html.twig', {'button_label': 'Update'}) }}
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            ClassicEditor
+                .create( document.querySelector( '#blog_post_content' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+        });
+
+    </script>
 {% endblock %}

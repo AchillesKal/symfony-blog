@@ -8,3 +8,17 @@
         {{ include('blog_post/_form.html.twig') }}
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            ClassicEditor
+                .create( document.querySelector( '#blog_post_content' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+        });
+    </script>
+{% endblock %}

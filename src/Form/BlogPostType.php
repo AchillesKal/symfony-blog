@@ -39,6 +39,7 @@ class BlogPostType extends AbstractType
             ->add('content', TextareaType::class, [
                 'required' => false,
                 'attr' => ['class' => 'tinymce'],
+                'purify_html' => true,
             ])
             ->add('tags', EntityType::class, [
                 'class' => Tag::class,
