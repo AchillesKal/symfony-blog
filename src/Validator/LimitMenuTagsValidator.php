@@ -19,14 +19,11 @@ class LimitMenuTagsValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, LimitMenuTags::class);
         }
 
-        /* @var LimitMenuTags $constraint */
-
         if (null === $value || '' === $value) {
             return;
         }
-        $menuTagsCount = $this->tagRepository->count(['isMenu' => true]);
 
-        if ($menuTagsCount > 5) {
+        if (true === $value && $this->tagRepository->count(['isMenu' => true]) > 5) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
