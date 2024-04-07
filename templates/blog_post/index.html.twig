@@ -22,7 +22,7 @@
                         <figure class="relative">
                             {# Check if the blog post has a banner image #}
                             {% if blog_post.banner %}
-                                <img src="{{ asset(uploaded_asset(blog_post.banner)) }}" alt="{{ blog_post.title }}" class="h-full w-full rounded-3xl object-cover">
+                                <img src="{{ asset(uploaded_asset(blog_post.banner)) | imagine_filter('blog_list') }}" alt="{{ blog_post.title }}" class="h-full w-full rounded-3xl object-cover">
                             {% else %}
                                 <div class="min-h-full h-72 flex justify-center items-center bg-gray-200 rounded-3xl fill-gray-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="54" viewBox="0 -960 960 960" width="54">
