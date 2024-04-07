@@ -6,3 +6,5 @@ liip_imagine:
     filter_sets:
         blog_list:
             quality: 75
+        blog_list_low:
+            quality: 30

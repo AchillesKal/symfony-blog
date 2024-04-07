@@ -284,6 +284,9 @@
     "symfony/ux-dropzone": {
         "version": "v2.16.0"
     },
+    "symfony/ux-lazy-image": {
+        "version": "v2.16.0"
+    },
     "symfony/validator": {
         "version": "7.0",
         "recipe": {

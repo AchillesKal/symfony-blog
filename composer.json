@@ -39,6 +39,7 @@
         "symfony/twig-bundle": "7.0.*",
         "symfony/ux-autocomplete": "^2.16",
         "symfony/ux-dropzone": "^2.16",
+        "symfony/ux-lazy-image": "^2.16",
         "symfony/validator": "7.0.*",
         "symfony/yaml": "7.0.*",
         "symfonycasts/tailwind-bundle": "^0.5.1",
