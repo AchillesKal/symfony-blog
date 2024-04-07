@@ -5,6 +5,12 @@
         {{ form_widget(form.title, {'attr': {'class': 'shadow-inner w-full bg-gray-100 border hover:border-gray-900 transition-all text-gray-900 mt-2 p-4 rounded-xl focus:outline-none focus:shadow-outline', 'placeholder': 'Add title'}}) }}
     </div>
 
+{#    add published at field#}
+    <div>
+        <label for="blog_post_publishedAt" class="text-sm font-medium">Published At</label>
+        {{ form_widget(form.publishedAt, {'attr': {'class': 'shadow-inner w-full bg-gray-100 hover:border-gray-900 transition-all border text-gray-900 mt-2 p-4 rounded-xl focus:outline-none focus:shadow-outline', 'placeholder': 'Add published at'}}) }}
+    </div>
+
     <div>
         <label for="blog_post_tags" class="text-sm font-medium">Tags</label>
         {{ form_widget(form.tags, {'attr': {'class': 'shadow-inner w-full bg-gray-100 hover:border-gray-900 transition-all border text-gray-900 mt-2 p-4 rounded-xl focus:outline-none focus:shadow-outline', 'multiple': 'multiple'}}) }}

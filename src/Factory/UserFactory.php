@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Zenstruck\Foundry\ModelFactory;
@@ -36,8 +37,11 @@ final class UserFactory extends ModelFactory
      *
      * @todo inject services if required
      */
-    public function __construct(private UserPasswordHasherInterface $passwordHasher)
-    {
+    public function __construct(
+        private UserPasswordHasherInterface $passwordHasher,
+        #[Autowire('%env(DEFAULT_USERNAME)%')] private readonly string $defaultUsername,
+        #[Autowire('%env(DEFAULT_PASSWORD)%')] private readonly string $defaultPassword,
+    ) {
         parent::__construct();
     }
 
@@ -49,8 +53,8 @@ final class UserFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'email' => 'test@mail.com',
-            'password' => '1234',
+            'email' => $this->defaultUsername,
+            'password' => $this->defaultPassword,
             'roles' => [],
         ];
     }

@@ -22,7 +22,7 @@ class BlogPostController extends AbstractController
     #[Route('', name: 'app_blog_post_index', methods: ['GET'])]
     public function index(BlogPostRepository $blogPostRepository, Request $request): Response
     {
-        $queryBuilder = $blogPostRepository->createOrderVyCreatedAtQueryBuilder();
+        $queryBuilder = $blogPostRepository->createOrderByPublishedAtQueryBuilder();
 
         $adapter = new QueryAdapter($queryBuilder);
         $pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(

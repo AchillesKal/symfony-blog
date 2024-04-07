@@ -59,6 +59,7 @@ final class BlogPostFactory extends ModelFactory
             'summary' => self::faker()->text,
             'content' => self::faker()->randomHtml(3, 6),
             'banner' => $file->getFilename(),
+            'publishedAt' => self::faker()->dateTimeBetween('-3 month'),
         ];
     }
 

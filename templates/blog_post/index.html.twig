@@ -35,6 +35,9 @@
                                 <a href="{{ path('app_blog_post_show', {'slug': blog_post.slug}) }}">
                                     <h2 class="text-balance @xl:leading-tight text-2xl font-bold @xl:text-5xl text-black">{{ blog_post.title }}</h2>
                                 </a>
+                                <div>
+                                    <span class="text-gray-500">{{ blog_post.publishedAt|date('F j, Y H:i') }}</span>
+                                </div>
                                 <p class="@xl:text-2xl text-md font-light text-black max-w-4xl line-clamp-3 @xl:leading-9 leading-relaxed">
                                     {{ blog_post.summary|purify }}
                                 </p>

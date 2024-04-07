@@ -22,10 +22,11 @@ class BlogPostRepository extends ServiceEntityRepository
         parent::__construct($registry, BlogPost::class);
     }
 
-    public function createOrderVyCreatedAtQueryBuilder(): QueryBuilder
+    public function createOrderByPublishedAtQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('bp')
-            ->orderBy('bp.createdAt', 'DESC');
+            ->andWhere('bp.publishedAt IS NOT NULL')
+            ->orderBy('bp.publishedAt', 'DESC');
     }
 
 

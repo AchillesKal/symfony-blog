@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     banner_directory: '%kernel.project_dir%/public/uploads/banners'
+    default_username: '%env(DEFAULT_USERNAME)%'
+    default_password: '%env(DEFAULT_PASSWORD)%'
 
 services:
     # default configuration for services in *this* file

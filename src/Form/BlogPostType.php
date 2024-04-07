@@ -7,6 +7,7 @@ use App\Entity\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -52,6 +53,15 @@ class BlogPostType extends AbstractType
                 'multiple' => true,
                 'autocomplete' => true,
                 'required' => false,
+            ])
+            ->add('publishedAt', DateTimeType::class,[
+                'required' => false,
+                'widget' => 'single_text',
+                'html5' => false,
+                'format' => 'yyyy-MM-dd HH:mm',
+                'attr' => [
+                    'class' => 'app-datepicker',
+                ],
             ])
         ;
 
