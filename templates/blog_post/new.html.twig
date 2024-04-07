@@ -15,10 +15,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             ClassicEditor
-                .create( document.querySelector( '#blog_post_content' ) )
-                .catch( error => {
-                    console.error( error );
-                } );
+                .create(document.querySelector('#blog_post_content'))
+                .catch(error => {
+                    console.error(error);
+                });
+            ClassicEditor
+                .create(document.querySelector('#blog_post_summary'))
+                .catch(error => {
+                    console.error(error);
+                });
         });
     </script>
 {% endblock %}

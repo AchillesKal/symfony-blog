@@ -39,6 +39,9 @@ class BlogPost
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $banner = null;
 
+    #[ORM\Column(length: 1000, nullable: true)]
+    private ?string $summary = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -132,6 +135,18 @@ class BlogPost
     public function setBanner(?string $banner): static
     {
         $this->banner = $banner;
+
+        return $this;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(?string $summary): static
+    {
+        $this->summary = $summary;
 
         return $this;
     }

@@ -25,6 +25,11 @@
                 .catch( error => {
                     console.error( error );
                 } );
+            ClassicEditor
+                .create( document.querySelector( '#blog_post_summary' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
         });
 
     </script>

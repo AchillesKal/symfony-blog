@@ -56,7 +56,8 @@ final class BlogPostFactory extends ModelFactory
         $file = new UploadedFile($temporaryImagePath, $filename);
         return [
             'title' => ucfirst(self::faker()->words(5, true)),
-            'content' => self::faker()->paragraphs(10, true),
+            'summary' => self::faker()->text,
+            'content' => self::faker()->randomHtml(3, 6),
             'banner' => $file->getFilename(),
         ];
     }
