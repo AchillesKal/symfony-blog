@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TagRepository;
 use App\Util\TimestampableEntityTrait;
+use App\Validator\LimitMenuTags;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,6 +29,10 @@ class Tag
 
     #[ORM\ManyToMany(targetEntity: BlogPost::class, mappedBy: 'tags')]
     private Collection $blogPosts;
+
+    #[ORM\Column]
+    #[LimitMenuTags]
+    private bool $isMenu = false;
 
 
     public function __construct()
@@ -84,6 +89,18 @@ class Tag
     public function removeBlogPost(BlogPost $blogPost): static
     {
         $this->blogPosts->removeElement($blogPost);
+
+        return $this;
+    }
+
+    public function isMenu(): bool
+    {
+        return $this->isMenu;
+    }
+
+    public function setIsMenu(bool $isMenu): static
+    {
+        $this->isMenu = $isMenu;
 
         return $this;
     }

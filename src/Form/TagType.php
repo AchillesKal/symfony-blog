@@ -2,10 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\BlogPost;
 use App\Entity\Tag;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,12 +14,10 @@ class TagType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('blogPosts', EntityType::class, [
-                'class' => BlogPost::class,
-                'choice_label' => 'id',
-                'multiple' => true,
+            ->add('isMenu', CheckboxType::class, [
+                'label'    => 'Display in Menu',
                 'required' => false,
-            ])
+            ]);
         ;
     }
 

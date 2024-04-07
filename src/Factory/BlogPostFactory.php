@@ -54,6 +54,7 @@ final class BlogPostFactory extends ModelFactory
         // Copy the dummy image to a temporary file to simulate an upload
         copy($imagePath, $temporaryImagePath);
         $file = new UploadedFile($temporaryImagePath, $filename);
+
         return [
             'title' => ucfirst(self::faker()->words(5, true)),
             'summary' => self::faker()->text,

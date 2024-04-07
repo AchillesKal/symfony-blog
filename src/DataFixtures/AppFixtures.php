@@ -13,7 +13,17 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         UserFactory::createOne();
-        TagFactory::createMany(20);
+
+        foreach (['Travel', 'Deals', 'Entertainment', 'Science', 'Tech', 'Shopping'] as $title) {
+            TagFactory::createOne(
+                [
+                    'title' => $title,
+                    'isMenu' => true,
+                ]
+            );
+        }
+
+        TagFactory::createMany(15);
         BlogPostFactory::createMany(100, function() {
             return [
                 'tags' => TagFactory::randomRange(1, 5),

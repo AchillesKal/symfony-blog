@@ -22,13 +22,11 @@
                     </a>
                     <div class="flex space-x-8 *:font-bold *:text-sm hidden lg:block">
                         <a href="{{ path('app_blog_post_index') }}" class="text-gray-800 hover:text-gray-600">Home</a>
-                        <a href="{{ path('app_about') }}" class="text-gray-800 hover:text-gray-600">Travel</a>
-                        <a href="{{ path('app_about') }}" class="text-gray-800 hover:text-gray-600">Deals</a>
-                        <a href="{{ path('app_about') }}" class="text-gray-800 hover:text-gray-600">Entertainment</a>
-                        <a href="{{ path('app_about') }}" class="text-gray-800 hover:text-gray-600">Science</a>
-                        <a href="{{ path('app_about') }}" class="text-gray-800 hover:text-gray-600">Tech</a>
-                        <a href="{{ path('app_about') }}" class="text-gray-800 hover:text-gray-600">Shopping</a>
+                        {% for tag in get_menu_tags() %}
+                            <a href="{{ path('app_tag_show', { 'slug': tag.slug}) }}" class="text-gray-800 hover:text-gray-600">{{tag.title}}</a>
+                        {% endfor %}
                     </div>
+
                     {% if app.user %}
                         <a href="{{ path('app_logout') }}" class="flex gap-2 items-center">
                             <span>Logout</span>
