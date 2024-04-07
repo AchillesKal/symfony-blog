@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\BlogPost;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -29,6 +30,15 @@ class BlogPostRepository extends ServiceEntityRepository
             ->orderBy('bp.publishedAt', 'DESC');
     }
 
+    public function createFilteredByTagOrderByPublishedAtQueryBuilder(Tag $tag): QueryBuilder
+    {
+        return $this->createQueryBuilder('bp')
+            ->innerJoin('bp.tags', 't')
+            ->andWhere('bp.publishedAt IS NOT NULL')
+            ->andWhere('t = :tag')
+            ->setParameter('tag', $tag)
+            ->orderBy('bp.publishedAt', 'DESC');
+    }
 
     //    /**
     //     * @return BlogPost[] Returns an array of BlogPost objects

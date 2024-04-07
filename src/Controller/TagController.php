@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Tag;
 use App\Form\TagType;
+use App\Repository\BlogPostRepository;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,9 +45,19 @@ class TagController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_tag_show', methods: ['GET'])]
-    public function show(Tag $tag): Response
+    public function show(Request $request, Tag $tag, BlogPostRepository $blogPostRepository): Response
     {
+        $queryBuilder = $blogPostRepository->createFilteredByTagOrderByPublishedAtQueryBuilder($tag);
+
+        $adapter = new QueryAdapter($queryBuilder);
+        $pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(
+            $adapter,
+            $request->query->get('page', 1),
+            11
+        );
+
         return $this->render('tag/show.html.twig', [
+            'pager' => $pagerfanta,
             'tag' => $tag,
         ]);
     }

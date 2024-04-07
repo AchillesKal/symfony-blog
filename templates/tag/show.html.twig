@@ -26,6 +26,14 @@
         </tbody>
     </table>
 
+    <div>
+        {% for blog_post in pager %}
+            <div>
+                <a href="{{ path('app_blog_post_show', {'slug': blog_post.slug}) }}">{{ blog_post.title }}</a>
+            </div>
+        {% endfor %}
+    </div>
+
     <a href="{{ path('app_tag_index') }}">back to list</a>
 
     <a href="{{ path('app_tag_edit', {'id': tag.id}) }}">edit</a>
