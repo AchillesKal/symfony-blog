@@ -23,10 +23,10 @@
                             {# Check if the blog post has a banner image #}
                             {% if blog_post.banner %}
                                 <img
-                                    src="{{ asset(uploaded_asset(blog_post.banner)) | imagine_filter('blog_list') }}"
+                                    src="{{ asset(uploaded_asset(blog_post.banner)) | imagine_filter('blog_list_low') }}"
                                     alt="{{ blog_post.title }}" class="h-full w-full rounded-3xl object-cover"
                                     {{ stimulus_controller('symfony/ux-lazy-image/lazy-image', {
-                                        src: asset(uploaded_asset(blog_post.banner)) | imagine_filter('blog_list_low')
+                                        src: asset(uploaded_asset(blog_post.banner)) | imagine_filter('blog_list')
                                     }) }}
                                 >
                             {% else %}
