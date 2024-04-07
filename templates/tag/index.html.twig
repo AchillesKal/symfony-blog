@@ -23,7 +23,7 @@
                 <td>{{ tag.createdAt ? tag.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ tag.updatedAt ? tag.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_tag_show', {'id': tag.id}) }}">show</a>
+                    <a href="{{ path('app_tag_show', {'slug': tag.slug}) }}">show</a>
                     <a href="{{ path('app_tag_edit', {'id': tag.id}) }}">edit</a>
                 </td>
             </tr>

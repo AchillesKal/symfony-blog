@@ -41,7 +41,7 @@ class TagController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tag_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_tag_show', methods: ['GET'])]
     public function show(Tag $tag): Response
     {
         return $this->render('tag/show.html.twig', [

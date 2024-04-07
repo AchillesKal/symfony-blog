@@ -7,6 +7,7 @@ use App\Util\TimestampableEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Slug;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag
@@ -20,6 +21,10 @@ class Tag
 
     #[ORM\Column(length: 255)]
     private string $title;
+
+    #[ORM\Column(length: 255, unique: true)]
+    #[Slug(fields: ['title'])]
+    private string $slug;
 
     #[ORM\ManyToMany(targetEntity: BlogPost::class, mappedBy: 'tags')]
     private Collection $blogPosts;
@@ -43,6 +48,18 @@ class Tag
     public function setTitle(string $title): static
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
