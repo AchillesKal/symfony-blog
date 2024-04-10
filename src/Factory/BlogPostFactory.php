@@ -4,6 +4,8 @@ namespace App\Factory;
 
 use App\Entity\BlogPost;
 use App\Repository\BlogPostRepository;
+use App\Service\UploaderHelper;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
@@ -35,8 +37,10 @@ final class BlogPostFactory extends ModelFactory
      *
      * @todo inject services if required
      */
-    public function __construct()
-    {
+    public function __construct(
+        private UploaderHelper $uploaderHelper,
+        #[Autowire(param: 'banner_directory')] private string $bannerDirectory,
+    ) {
         parent::__construct();
     }
 
@@ -47,19 +51,15 @@ final class BlogPostFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
-        $imagePath = __DIR__ . '/../../assets/images/test.webp';
-        $filename = uniqid('test') . '.webp';
-        $temporaryImagePath =  __DIR__  . '/../../public/uploads/banners/' . $filename;
+        $file = new UploadedFile( __DIR__ . '/../../assets/images/test.webp', 'test.webp', test: true);
 
-        // Copy the dummy image to a temporary file to simulate an upload
-        copy($imagePath, $temporaryImagePath);
-        $file = new UploadedFile($temporaryImagePath, $filename);
+        $filename = $this->uploaderHelper->uploadFile($file, $this->bannerDirectory, true);
 
         return [
             'title' => ucfirst(self::faker()->words(5, true)),
             'summary' => self::faker()->text,
             'content' => self::faker()->randomHtml(3, 6),
-            'banner' => $file->getFilename(),
+            'banner' => $filename,
             'publishedAt' => self::faker()->dateTimeBetween('-3 month'),
         ];
     }

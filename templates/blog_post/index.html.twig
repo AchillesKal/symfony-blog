@@ -20,13 +20,13 @@
                 <div class="first:sm:col-span-2">
                     <div class="@container">
                         <figure class="relative">
-                            {# Check if the blog post has a banner image #}
                             {% if blog_post.banner %}
                                 <img
-                                    src="{{ asset(uploaded_asset(blog_post.banner)) | imagine_filter('blog_list_low') }}"
-                                    alt="{{ blog_post.title }}" class="h-full w-full rounded-3xl object-cover"
+                                    src="{{ data_uri_thumbnail(asset(uploaded_banner_low(blog_post.banner)), 100, 75) }}"
+                                    alt="{{ blog_post.title }}"
+                                    class="h-96 w-full rounded-3xl object-cover transition-all"
                                     {{ stimulus_controller('symfony/ux-lazy-image/lazy-image', {
-                                        src: asset(uploaded_asset(blog_post.banner)) | imagine_filter('blog_list')
+                                        src: asset(uploaded_banner(blog_post.banner))
                                     }) }}
                                 >
                             {% else %}

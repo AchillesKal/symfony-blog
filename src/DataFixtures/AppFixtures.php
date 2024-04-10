@@ -24,7 +24,7 @@ class AppFixtures extends Fixture
         }
 
         TagFactory::createMany(15);
-        BlogPostFactory::createMany(100, function() {
+        BlogPostFactory::createMany(50, function() {
             return [
                 'tags' => TagFactory::randomRange(1, 5),
             ];
