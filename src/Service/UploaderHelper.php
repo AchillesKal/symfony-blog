@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\UX\LazyImage\BlurHash\BlurHash;
 
 class UploaderHelper
 {
@@ -20,20 +21,20 @@ class UploaderHelper
         private CacheManager $cacheManager,
         private FilterManager $filterManager,
         private DataManager $dataManager,
-        private FilterService $filterService
+        private FilterService $filterService,
+        private BlurHash $blurHash,
     )
     {
         $this->filesystem = new Filesystem();
     }
 
-    public function uploadFile(File $file, string $fileDirectory, $test = false): string
+    public function uploadFile(File $file, string $fileDirectory, $test = false): array
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
         // this is needed to safely include the file name as part of the URL
         $safeFilename = $this->slugger->slug($originalFilename);
         $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
-
 
         try {
             if (true === $test) {
@@ -53,14 +54,22 @@ class UploaderHelper
             }
 
             $search = '/app/public';
-            $filePath = str_replace($search, '', $filePath);
+            $relativeFilePath = str_replace($search, '', $filePath);
 
-            $this->filterService->getUrlOfFilteredImage($filePath, 'blog_list');
-            $this->filterService->getUrlOfFilteredImage($filePath, 'blog_list_low');
+            $this->filterService->getUrlOfFilteredImage($relativeFilePath, 'blog_list');
+            $this->filterService->getUrlOfFilteredImage($relativeFilePath, 'blog_list_low');
+
+            $blurredThumbnail = $this->blurHash->createDataUriThumbnail($filePath, 100, 75);
+
+            // save the thumbnail to file
+            $this->filesystem->dumpFile($fileDirectory.'/'.pathinfo($newFilename, PATHINFO_FILENAME).'.webp', $blurredThumbnail);
         } catch (FileException $e) {
-            dd($e->getMessage());
+
         }
 
-        return $newFilename;
+        return [
+            'filename' => $newFilename,
+            'blurredThumbnail' => $blurredThumbnail,
+        ];
     }
 }

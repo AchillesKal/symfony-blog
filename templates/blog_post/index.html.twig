@@ -22,7 +22,7 @@
                         <figure class="relative">
                             {% if blog_post.banner %}
                                 <img
-                                    src="{{ data_uri_thumbnail(asset(uploaded_banner_low(blog_post.banner)), 100, 75) }}"
+                                    src="{{ blog_post.blurredThumbnail }}"
                                     alt="{{ blog_post.title }}"
                                     class="h-96 w-full rounded-3xl object-cover transition-all"
                                     {{ stimulus_controller('symfony/ux-lazy-image/lazy-image', {

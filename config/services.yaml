@@ -31,3 +31,6 @@ services:
             - { driver: 'gd' } 
 
     Liip\ImagineBundle\Service\FilterService: '@liip_imagine.service.filter'
+
+    Symfony\UX\LazyImage\BlurHash\BlurHash:
+        public: true

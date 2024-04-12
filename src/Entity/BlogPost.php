@@ -42,6 +42,9 @@ class BlogPost
     #[ORM\Column(length: 1000, nullable: true)]
     private ?string $summary = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $blurredThumbnail = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -147,6 +150,18 @@ class BlogPost
     public function setSummary(?string $summary): static
     {
         $this->summary = $summary;
+
+        return $this;
+    }
+
+    public function getBlurredThumbnail(): ?string
+    {
+        return $this->blurredThumbnail;
+    }
+
+    public function setBlurredThumbnail(?string $blurredThumbnail): static
+    {
+        $this->blurredThumbnail = $blurredThumbnail;
 
         return $this;
     }

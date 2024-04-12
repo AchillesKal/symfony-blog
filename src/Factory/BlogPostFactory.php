@@ -53,13 +53,14 @@ final class BlogPostFactory extends ModelFactory
     {
         $file = new UploadedFile( __DIR__ . '/../../assets/images/test.webp', 'test.webp', test: true);
 
-        $filename = $this->uploaderHelper->uploadFile($file, $this->bannerDirectory, true);
+        $fileUpload = $this->uploaderHelper->uploadFile($file, $this->bannerDirectory, true);
 
         return [
             'title' => ucfirst(self::faker()->words(5, true)),
             'summary' => self::faker()->text,
             'content' => self::faker()->randomHtml(3, 6),
-            'banner' => $filename,
+            'banner' => $fileUpload['filename'],
+            'blurredThumbnail' => $fileUpload['blurredThumbnail'],
             'publishedAt' => self::faker()->dateTimeBetween('-3 month'),
         ];
     }
