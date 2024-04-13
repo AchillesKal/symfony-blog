@@ -34,7 +34,6 @@ class Tag
     #[LimitMenuTags]
     private bool $isMenu = false;
 
-
     public function __construct()
     {
         $this->blogPosts = new ArrayCollection();

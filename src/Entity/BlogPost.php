@@ -29,7 +29,7 @@ class BlogPost
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $publishedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'tags')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'blogPosts')]
     private Collection $tags;
 
     #[ORM\Column(length: 255, unique: true)]
