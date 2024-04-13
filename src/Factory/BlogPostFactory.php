@@ -56,9 +56,9 @@ final class BlogPostFactory extends ModelFactory
         $fileUpload = $this->uploaderHelper->uploadFile($file, $this->bannerDirectory, true);
 
         return [
-            'title' => ucfirst(self::faker()->words(5, true)),
+            'title' => ucfirst(self::faker()->words(10, true)),
             'summary' => self::faker()->text,
-            'content' => self::faker()->randomHtml(3, 6),
+            'content' => self::faker()->randomHtml(6, 10),
             'banner' => $fileUpload['filename'],
             'blurredThumbnail' => $fileUpload['blurredThumbnail'],
             'publishedAt' => self::faker()->dateTimeBetween('-3 month'),

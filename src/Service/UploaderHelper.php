@@ -60,11 +60,8 @@ class UploaderHelper
             $this->filterService->getUrlOfFilteredImage($relativeFilePath, 'blog_list_low');
 
             $blurredThumbnail = $this->blurHash->createDataUriThumbnail($filePath, 100, 75);
-
-            // save the thumbnail to file
-            $this->filesystem->dumpFile($fileDirectory.'/'.pathinfo($newFilename, PATHINFO_FILENAME).'.webp', $blurredThumbnail);
         } catch (FileException $e) {
-
+            throw new FileException($e->getMessage());
         }
 
         return [
