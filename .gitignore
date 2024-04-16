@@ -26,6 +26,7 @@
 
 /assets/styles/app.tailwind.css
 /public/uploads/
+/tests/Screenshots/
 
 ###> liip/imagine-bundle ###
 /public/media/cache/
