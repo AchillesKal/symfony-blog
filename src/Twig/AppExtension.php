@@ -45,7 +45,7 @@ class AppExtension extends AbstractExtension
 
     public function getUploadedBannerLowPath(string $path): string
     {
-        return 'app/public/media/cache/blog_list_low/uploads/banners/' . $path;
+        return '/media/cache/blog_list_low/uploads/banners/' . $path;
     }
 
     public function getMenuTags()
