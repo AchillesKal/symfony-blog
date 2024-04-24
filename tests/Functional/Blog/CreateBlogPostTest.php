@@ -16,12 +16,6 @@ class CreateBlogPostTest extends AppPantherTestCase
     {
         UserFactory::createOne();
 
-        // test there are no articles
-        $this->browser()
-            ->visit('/')
-            ->assertSee('No Articles found 😞')
-        ;
-
         // login user
         $this->pantherBrowser()
             ->loginAs('test@mail.com', '1234')

@@ -17,10 +17,12 @@
     </div>
 
     {% if blog_post.banner %}
-        <div class="flex flex-col">
-            <img src="{{ asset(uploaded_asset(blog_post.banner)) }}" alt="{{ blog_post.title }}" class="w-full h-full object-cover">
-            <span>Delete image: {{ form_widget(form.delete_banner) }}</span>
-        </div>
+        <img
+            src="{{ asset(uploaded_asset(blog_post.banner)) }}"
+            alt="{{ blog_post.title }}"
+        >
+
+        <span>Delete image: {{ form_widget(form.delete_banner) }}</span>
     {% endif %}
 
     <div>

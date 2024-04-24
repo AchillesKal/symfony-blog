@@ -46,7 +46,9 @@ class BlogPostController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($bannerFile = $form->get('banner')->getData()) {
-                $blogPost->setBanner($uploaderHelper->uploadFile($bannerFile, $this->getParameter('banner_directory')));
+                $fileUpload = $uploaderHelper->uploadFile($bannerFile, $this->getParameter('banner_directory'));
+                $blogPost->setBanner($fileUpload['filename']);
+                $blogPost->setBlurredThumbnail($fileUpload['blurredThumbnail']);
             }
 
             $entityManager->persist($blogPost);
@@ -88,7 +90,9 @@ class BlogPostController extends AbstractController
                     unlink($this->getParameter('banner_directory').'/'.$blogPost->getBanner());
                 }
 
-                $blogPost->setBanner($uploaderHelper->uploadFile($bannerFile, $this->getParameter('banner_directory')));
+                $fileUpload = $uploaderHelper->uploadFile($bannerFile, $this->getParameter('banner_directory'));
+                $blogPost->setBanner($fileUpload['filename']);
+                $blogPost->setBlurredThumbnail($fileUpload['blurredThumbnail']);
             }
 
             $entityManager->flush();

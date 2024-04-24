@@ -20,9 +20,15 @@
                 <div class="first:sm:col-span-2">
                     <div class="@container">
                         <figure class="relative">
-                            {# Check if the blog post has a banner image #}
                             {% if blog_post.banner %}
-                                <img src="{{ asset(uploaded_asset(blog_post.banner)) }}" alt="{{ blog_post.title }}" class="h-full w-full rounded-3xl object-cover">
+                                <img
+                                    src="{{ blog_post.blurredThumbnail }}"
+                                    alt="{{ blog_post.title }}"
+                                    class="h-96 w-full rounded-3xl object-cover transition-all"
+                                    {{ stimulus_controller('symfony/ux-lazy-image/lazy-image', {
+                                        src: asset(uploaded_banner(blog_post.banner))
+                                    }) }}
+                                >
                             {% else %}
                                 <div class="min-h-full h-72 flex justify-center items-center bg-gray-200 rounded-3xl fill-gray-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="54" viewBox="0 -960 960 960" width="54">

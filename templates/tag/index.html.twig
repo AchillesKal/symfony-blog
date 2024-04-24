@@ -3,37 +3,20 @@
 {% block title %}Tag index{% endblock %}
 
 {% block body %}
-    <h1>Tag index</h1>
+    <div>
+        <ul class="flex items-start flex-wrap mt-4 prose prose-h1:text-balance pt-12 mx-auto max-w-screen-lg w-full prose-p:text-black prose-p:text-lg prose-p:font-light">
+            {% for tag in tags %}
+                <li class="flex mx-1">
+                    <a class="p-2 px-3 border-gray-800 mb-4 rounded font-medium hover:bg-transparent hover:border-gray-800 border bg-gray-400/25 text-gray-800"
+                       href="{{ path('app_tag_show', {'slug': tag.slug}) }}">
+                        {{ tag.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tag in tags %}
-            <tr>
-                <td>{{ tag.id }}</td>
-                <td>{{ tag.title }}</td>
-                <td>{{ tag.createdAt ? tag.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tag.updatedAt ? tag.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_tag_show', {'slug': tag.slug}) }}">show</a>
-                    <a href="{{ path('app_tag_edit', {'id': tag.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_tag_new') }}">Create new</a>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ path('app_tag_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

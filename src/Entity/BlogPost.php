@@ -29,7 +29,7 @@ class BlogPost
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $publishedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'tags')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'blogPosts')]
     private Collection $tags;
 
     #[ORM\Column(length: 255, unique: true)]
@@ -41,6 +41,9 @@ class BlogPost
 
     #[ORM\Column(length: 1000, nullable: true)]
     private ?string $summary = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $blurredThumbnail = null;
 
     public function __construct()
     {
@@ -147,6 +150,18 @@ class BlogPost
     public function setSummary(?string $summary): static
     {
         $this->summary = $summary;
+
+        return $this;
+    }
+
+    public function getBlurredThumbnail(): ?string
+    {
+        return $this->blurredThumbnail;
+    }
+
+    public function setBlurredThumbnail(?string $blurredThumbnail): static
+    {
+        $this->blurredThumbnail = $blurredThumbnail;
 
         return $this;
     }

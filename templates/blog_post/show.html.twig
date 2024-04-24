@@ -16,8 +16,16 @@
         <small>Updated at: {{ blog_post.updatedAt ? blog_post.updatedAt|date('D d M Y · H:i') : '' }}</small>
 
         {% if blog_post.banner %}
-            <img src="{{ asset(uploaded_asset(blog_post.banner)) }}" alt="{{ blog_post.title }}" class="h-full w-full object-cover">
+            <img
+                src="{{ blog_post.blurredThumbnail }}"
+                alt="{{ blog_post.title }}"
+                class="h-96 w-full rounded-3xl object-cover transition-all"
+                {{ stimulus_controller('symfony/ux-lazy-image/lazy-image', {
+                    src: asset(uploaded_banner(blog_post.banner))
+                }) }}
+            >
         {% endif %}
+
         <p>{{ blog_post.content|purify }}</p>
     </article>
 {% endblock %}
