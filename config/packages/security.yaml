@@ -45,7 +45,8 @@ security:
         - { path: ^/blog/[^/]+/?$, roles: PUBLIC_ACCESS, methods: GET }
         - { path: ^/tag/?$, roles: PUBLIC_ACCESS, methods: GET}
         - { path: ^/tag/[^/]+/?$, roles: PUBLIC_ACCESS, methods: GET}
-
+        - { path: ^/api$, roles: PUBLIC_ACCESS }
+        - { path: ^/api/blog_posts$, roles: PUBLIC_ACCESS }
         # Deny access to all other routes for anonymous users
         - { path: ^/, roles: ROLE_USER }
 

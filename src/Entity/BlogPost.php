@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\BlogPostRepository;
 use App\Util\TimestampableEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,8 +11,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: BlogPostRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+    ],
+    normalizationContext: ['groups' => ['blog_post:read']],
+)]
 class BlogPost
 {
     use TimestampableEntityTrait;
@@ -18,31 +27,40 @@ class BlogPost
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['blog_post:read'])]
     private int $id;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['blog_post:read'])]
     private string $title;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['blog_post:read'])]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    #[Groups(['blog_post:read'])]
     private ?\DateTimeImmutable $publishedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'blogPosts')]
+    #[Groups(['blog_post:read'])]
     private Collection $tags;
 
     #[ORM\Column(length: 255, unique: true)]
     #[Slug(fields: ['title'])]
+    #[Groups(['blog_post:read'])]
     private string $slug;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['blog_post:read'])]
     private ?string $banner = null;
 
     #[ORM\Column(length: 1000, nullable: true)]
+    #[Groups(['blog_post:read'])]
     private ?string $summary = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['blog_post:read'])]
     private ?string $blurredThumbnail = null;
 
     public function __construct()
