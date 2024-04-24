@@ -14,15 +14,4 @@ class MainController extends AbstractController
     {
         return $this->render('main/about.html.twig');
     }
-
-    #[Route('/about', name: 'app_aaaabout', methods: ['GET'])]
-    public function index(BlogPostRepository $blogPostRepository): Response
-    {
-        return $this->render('blog_post/index.html.twig', [
-            'blog_posts' => $blogPostRepository->findBy(
-                [],
-                ['createdAt' => 'DESC']
-            ),
-        ]);
-    }
 }

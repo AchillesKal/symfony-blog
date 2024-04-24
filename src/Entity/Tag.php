@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag
@@ -18,13 +19,16 @@ class Tag
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['blog_post:read'])]
     private int $id;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['blog_post:read'])]
     private string $title;
 
     #[ORM\Column(length: 255, unique: true)]
     #[Slug(fields: ['title'])]
+    #[Groups(['blog_post:read'])]
     private string $slug;
 
     #[ORM\ManyToMany(targetEntity: BlogPost::class, mappedBy: 'tags')]
