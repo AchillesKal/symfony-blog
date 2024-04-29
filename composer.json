@@ -42,6 +42,7 @@
         "symfony/monolog-bundle": "^3.0",
         "symfony/property-access": "7.0.*",
         "symfony/property-info": "7.0.*",
+        "symfony/rate-limiter": "7.0.*",
         "symfony/runtime": "7.0.*",
         "symfony/security-bundle": "7.0.*",
         "symfony/security-csrf": "7.0.*",
